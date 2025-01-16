@@ -31,7 +31,12 @@ export default [
       "no-unused-vars": ["warn", { "argsIgnorePattern": "res|next|^err" }],
       "arrow-body-style": ["error", "as-needed"],
       "no-param-reassign": ["error", { "props": false }],
-      "no-console": "warn",
+      "no-console": [
+        "warn",
+        {
+          allow: ["warn", "error"]
+        }
+      ],
       "quotes": ["error", "double", { "allowTemplateLiterals": true }],
       "func-names": "off",
       "space-unary-ops": "error",

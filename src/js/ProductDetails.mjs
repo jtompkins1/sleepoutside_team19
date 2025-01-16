@@ -2,16 +2,16 @@ import { setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   return `<section class="product-detail">
-    <h3>${product.Brand.Name}</h3>
-    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    <h3>${product.Brand?.Name || "No Brand Available"}</h3>
+    <h2 class="divider">${product.NameWithoutBrand || "Unknown Product"}</h2>
     <img
       class="divider"
-      src="${product.Image}"
-      alt="${product.NameWithoutBrand}"
+      src="${product.Image || '/images/default-product.jpg'}"
+      alt="${product.NameWithoutBrand || 'Product Image'}"
     />
-    <p class="product-card__price">$${product.FinalPrice}</p>
-    <p class="product__color">${product.Colors[0].ColorName}</p>
-    <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
+    <p class="product__color">${product.Colors[0]?.ColorName || "No Color Available"}</p>
+    <p class="product__description">${product.DescriptionHtmlSimple || ""}</p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
     </div>
@@ -30,40 +30,47 @@ export default class ProductDetails {
       // Get the details for this specific product
       this.product = await this.dataSource.findProductById(this.productId);
 
-      // Handle invalid product
       if (!this.product) {
         this.renderError("Product not found.");
-        return; // Exit early to prevent further execution
+        return;
       }
 
-      // Render product details
       this.renderProductDetails("main");
-
-      // Add listener to Add to Cart button
-      document
-        .getElementById("addToCart")
-        .addEventListener("click", this.addToCart.bind(this));
+      this.setupEventListeners();
     } catch (error) {
-      // Log the error and display an error message to the user
       console.error("Error loading product details:", error);
       this.renderError("There was an error loading the product details.");
     }
   }
 
-  addToCart() {
-    let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+  setupEventListeners() {
+    const addToCartButton = document.getElementById("addToCart");
+    if (addToCartButton) {
+      addToCartButton.addEventListener("click", this.addToCart.bind(this));
+    } else {
+      console.error("Add to Cart button not found.");
+    }
+  }
 
-    // Ensure cart is an array
-    if (!Array.isArray(cart)) {
-      cart = [cart];
+  addToCart() {
+    if (!this.product) {
+      console.error("Cannot add an undefined product to the cart.");
+      return;
     }
 
+    let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+    cart = Array.isArray(cart) ? cart : [cart];
     cart.push(this.product);
     setLocalStorage("so-cart", cart);
   }
 
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
+    if (!element) {
+      console.error(`Selector ${selector} not found.`);
+      return;
+    }
+
     element.insertAdjacentHTML(
       "afterBegin",
       productDetailsTemplate(this.product)
@@ -72,6 +79,10 @@ export default class ProductDetails {
 
   renderError(message) {
     const element = document.querySelector("main");
-    element.innerHTML = `<p class="error-message">${message}</p>`;
+    if (element) {
+      element.innerHTML = `<p class="error-message">${message}</p>`;
+    } else {
+      console.error("Main element not found for rendering error.");
+    }
   }
 }

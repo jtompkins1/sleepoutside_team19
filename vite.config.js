@@ -13,17 +13,18 @@ export default defineConfig({
         checkout: resolve(__dirname, "src/checkout/index.html"),
         product1: resolve(
           __dirname,
-          "src/product_pages/cedar-ridge-rimrock-2.html",
+          "src/product-pages/cedar-ridge-rimrock-2.html",
         ),
-        product2: resolve(__dirname, "src/product_pages/marmot-ajax-3.html"),
+        product2: resolve(__dirname, "src/product-pages/marmot-ajax-3.html"),
         product3: resolve(
           __dirname,
-          "src/product_pages/northface-alpine-3.html",
+          "src/product-pages/northface-alpine-3.html",
         ),
         product4: resolve(
           __dirname,
-          "src/product_pages/northface-talus-4.html",
+          "src/product-pages/northface-talus-4.html",
         ),
+        productPagesIndex: resolve(__dirname, "src/product-pages/index.html"), // New
       },
     },
   },

@@ -1,24 +1,9 @@
-import { getParam } from "../js/utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
+import { getParam } from "./utils.mjs";
 
-// Uncomment the line below for debugging purposes:
-// console.log("Product.js is loading");
+const productId = getParam("product"); // Get product ID from URL parameter
+const dataSource = new ProductData("tents"); // Load the correct JSON file
+const product = new ProductDetails(productId, dataSource);
 
-// Initialize ProductData for the "tents" category
-const dataSource = new ProductData("tents");
-
-// Retrieve product ID from URL query string
-const productId = getParam("product");
-
-// Uncomment the line below for debugging purposes:
-// console.log("Product ID found:", productId);
-
-// Initialize ProductDetails and render the product
-if (productId) {
-  const product = new ProductDetails(productId, dataSource);
-  product.init();
-} else {
-  // eslint-disable-next-line no-console
-  console.error("Product ID not found in URL.");
-}
+product.init(); // Initialize and render the product details
