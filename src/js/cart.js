@@ -1,9 +1,12 @@
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  // Retrieve the cart items from localStorage or initialize as an empty array if null
+  const cartItems = getLocalStorage("so-cart") || [];
+  // Generate HTML for each cart item using the cartItemTemplate function and join them into a single string
+  const htmlItems = cartItems.map(cartItemTemplate).join("");
+  // Insert the generated HTML into the element with the class 'product-list'
+  document.querySelector(".product-list").innerHTML = htmlItems;
 }
 
 function cartItemTemplate(item) {
