@@ -1,32 +1,24 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getParam } from "../js/utils.mjs";
 import ProductData from "./ProductData.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 
+// Uncomment the line below for debugging purposes:
+// console.log("Product.js is loading");
+
+// Initialize ProductData for the "tents" category
 const dataSource = new ProductData("tents");
 
-function addProductToCart(product) {
-  let cart = getLocalStorage("so-cart");
-  // If no cart exists yet, create an array with the first product
-  if (!cart) {
-    cart = [product];
-  }
-  // If cart exists, add the new product to the array
-  else {
-    // Convert single product to array if necessary
-    if (!Array.isArray(cart)) {
-      cart = [cart];
-    }
-    cart.push(product);
-  }
-  setLocalStorage("so-cart", cart);
-}
+// Retrieve product ID from URL query string
+const productId = getParam("product");
 
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
+// Uncomment the line below for debugging purposes:
+// console.log("Product ID found:", productId);
 
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+// Initialize ProductDetails and render the product
+if (productId) {
+  const product = new ProductDetails(productId, dataSource);
+  product.init();
+} else {
+  // eslint-disable-next-line no-console
+  console.error("Product ID not found in URL.");
+}
