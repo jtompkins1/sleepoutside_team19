@@ -8,7 +8,7 @@ export default [
   {
     files: ["src/**/*.js", "src/**/*.mjs", "dist/**/*.js"],
     plugins: {
-      import: importsPlugin
+      import: importsPlugin,
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -24,20 +24,20 @@ export default [
         sessionStorage: true,
         URLSearchParams: true,
         MutationObserver: true,
-        CustomEvent: true
-      }
+        CustomEvent: true,
+      },
     },
     rules: {
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "res|next|^err" }],
+      "no-unused-vars": ["warn", { argsIgnorePattern: "res|next|^err" }],
       "arrow-body-style": ["error", "as-needed"],
-      "no-param-reassign": ["error", { "props": false }],
+      "no-param-reassign": ["error", { props: false }],
       "no-console": [
         "warn",
         {
-          allow: ["warn", "error"]
-        }
+          allow: ["warn", "error"],
+        },
       ],
-      "quotes": ["error", "double", { "allowTemplateLiterals": true }],
+      quotes: ["error", "double", { allowTemplateLiterals: true }],
       "func-names": "off",
       "space-unary-ops": "error",
       "space-in-parens": "error",
@@ -48,19 +48,22 @@ export default [
       "import/namespace": "off",
       "no-underscore-dangle": "off",
       "consistent-return": "off",
-      "radix": "off",
-      "no-shadow": ["error", {
-        "hoist": "all",
-        "allow": ["resolve", "reject", "done", "next", "err", "error"]
-      }],
-      "no-unused-expressions": "off"
-    }
+      radix: "off",
+      "no-shadow": [
+        "error",
+        {
+          hoist: "all",
+          allow: ["resolve", "reject", "done", "next", "err", "error"],
+        },
+      ],
+      "no-unused-expressions": "off",
+    },
   },
   // Node.js files configuration
   {
     files: ["*.js", "vite.config.js"],
     plugins: {
-      import: importsPlugin
+      import: importsPlugin,
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -72,14 +75,14 @@ export default [
         process: true,
         module: true,
         require: true,
-        exports: true
-      }
+        exports: true,
+      },
     },
     rules: {
       "no-console": "off",
       "import/extensions": "off",
-      "import/namespace": "off"
-    }
+      "import/namespace": "off",
+    },
   },
-  eslintConfigPrettier
+  eslintConfigPrettier,
 ];

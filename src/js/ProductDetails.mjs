@@ -6,8 +6,8 @@ function productDetailsTemplate(product) {
     <h2 class="divider">${product.NameWithoutBrand || "Unknown Product"}</h2>
     <img
       class="divider"
-      src="${product.Image || '/images/default-product.jpg'}"
-      alt="${product.NameWithoutBrand || 'Product Image'}"
+      src="${product.Image || "/images/default-product.jpg"}"
+      alt="${product.NameWithoutBrand || "Product Image"}"
     />
     <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
     <p class="product__color">${product.Colors[0]?.ColorName || "No Color Available"}</p>
@@ -73,7 +73,7 @@ export default class ProductDetails {
 
     element.insertAdjacentHTML(
       "afterBegin",
-      productDetailsTemplate(this.product)
+      productDetailsTemplate(this.product),
     );
   }
 
