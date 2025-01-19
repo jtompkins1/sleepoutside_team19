@@ -1,4 +1,4 @@
-export default class alert {
+export default class Alert {
 
     constructor() {
         //initialize empty array
@@ -27,12 +27,26 @@ export default class alert {
                 // build a <p> for each alert and apply the background and foreground colors to it specified in the alert.json file
                 const p = document.createElement('p');
                 p.textContent = alert.message;
-                p.style.backgroundColor = alert.backgroundColor;
-                p.style.color = alert.foregroundColor;
+                p.style.background= alert.background;
+                p.style.color = alert.color;
                 alertList.appendChild(p);
             });
+
+            //prepend the alertList section to main
+            const mainElement = document.querySelector('main');
+            if (mainElement) {
+                mainElement.insertBefore(alertList, mainElement.firstChild);
+            } else {
+                console.error('No <main> element found to prepend alerts to.');
+            }
+        }
+    }
+
+        // Method to initialize and display alerts
+        async init() {
+            await this.loadAlerts();
+            this.show();
         }
     }
 
 
-}
