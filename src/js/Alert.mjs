@@ -48,5 +48,3 @@ export default class Alert {
             this.show();
         }
     }
-
-
