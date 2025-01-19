@@ -8,6 +8,8 @@ function calculateTotal(cartItems) {
   }, 0).toFixed(2);
 }
 
+
+
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
 
