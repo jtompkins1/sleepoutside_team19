@@ -8,7 +8,7 @@ export default class Alert {
     // Read and parse JSON file
     async loadAlerts() {
         try {
-            const response = await fetch('./alerts.json');
+            const response = await fetch('./json/alerts.json');
             const data = await response.json();
             this.alerts = data;
         } catch (err) {

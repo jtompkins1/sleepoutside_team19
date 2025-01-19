@@ -14,5 +14,8 @@ const productListing = new ProductListing('tents', dataSource, listElement);
 // Initialize the ProductListing class
 productListing.init();
 
-//Initialize the Alert class
+//Create an instance of Alert
 alert = new Alert();
+
+//Initialize the Alert class
+alert.init();
