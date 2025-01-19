@@ -103,6 +103,26 @@ button {
   text-align: center;
 }
 
+.cart-count {
+  /* Positioning the count at the top right corner of the cart */
+  position: absolute;
+  top: -5px; /* Adjust based on the size of your cart icon */
+  right: -5px; /* Adjust based on the size of your cart icon */
+  
+  /* Visual styling */
+  background-color: #f0a868; /* Orange background */
+  color: black;
+  font-size: 12px; /* Smaller font size */
+  font-weight: bold;
+  padding: 2px 6px; /* Padding around the text */
+  border-radius: 50%; /* Makes it circular */
+  line-height: 1; /* Ensures the text is centered vertically */
+  
+  /* Subscript-like effect */
+  vertical-align: super; /* Adjusts vertical alignment */
+  text-align: center;
+}
+
 .cart svg {
   width: 25px;
 }
