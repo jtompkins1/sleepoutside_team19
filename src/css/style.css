@@ -255,6 +255,24 @@ button {
   display: none;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 100%;
+}
+
+.grid-item {
+  margin: 0 auto;
+  display: block;
+}
+
+.grid-item p {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
 
 @media screen and (min-width: 500px) {
   body {

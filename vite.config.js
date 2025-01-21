@@ -1,5 +1,6 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import ProductListing from "./src/js/ProductList.mjs";
 
 export default defineConfig({
   root: "src/",
@@ -25,7 +26,9 @@ export default defineConfig({
           "src/product_pages/northface-talus-4.html",
         ),
         product: resolve(__dirname, "src/product_pages/index.html"), // Added this line - updated entry
-        productPagesIndex: resolve(__dirname, "src/product_pages/index.html"), // New
+        productPagesIndex: resolve(__dirname, "src/product_pages/index.html"), 
+        ProductListing: resolve(__dirname, "src/product-listing/index.html"),
+        
       },
     },
   },
