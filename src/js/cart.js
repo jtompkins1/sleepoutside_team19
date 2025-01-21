@@ -32,7 +32,6 @@ function renderCartContents() {
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
-
   // Attach listeners for the remove buttons
   attachRemoveListeners();
 
@@ -56,13 +55,12 @@ function cartItemTemplate(item) {
     <p class="cart-card__color">${item.Colors && item.Colors[0] ? item.Colors[0].ColorName : 'Unknown'}</p>
     <p class="cart-card__quantity">qty: 1</p>
 
-    <p class="cart-card__price">$${item.FinalPrice}</p>
+    // <p class="cart-card__price">$${item.FinalPrice}</p>
+    <p class="cart-card__price">$${item.FinalPrice || '0.00'}</p>
     <span class="remove-item" data-id="${item.Id}">❌</span> 
   </li>`; // Added a delete button (span) for each item in the cart to allow users to remove items.
 
-    <p class="cart-card__price">$${item.FinalPrice || '0.00'}</p>
-  </li>`;
-
+  //</li>`;
   return newItem;
 }
 
@@ -75,13 +73,7 @@ function clearCart() {
   renderCartContents();
 }
 
-// Render the cart contents when the script loads
-document.addEventListener('DOMContentLoaded', () => {
-  renderCartContents();
 
-
-// Attach the clearCart function to the Clear Cart button
-document.getElementById("clearCart").addEventListener("click", clearCart);
 
 // Adds click event listeners to each 'remove' button in the cart.
 // When a button is clicked, it retrieves the product's ID and calls the removeFromCart function.
@@ -111,6 +103,13 @@ function removeFromCart(productId) {
   renderCartContents();
 }
 
+// Render the cart contents when the script loads
+document.addEventListener('DOMContentLoaded', () => {
+  renderCartContents();
+
+
+// Attach the clearCart function to the Clear Cart button
+document.getElementById("clearCart").addEventListener("click", clearCart);
 
 
   // Attach the clearCart function to the Clear Cart button
