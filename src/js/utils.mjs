@@ -45,21 +45,35 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
+// Renders a list of items using a provided template function
+export function renderWithTemplate(templateFn, parentElement, data, position = "afterbegin", clear = false) {
+  // Clear the parent element if the clear flag is set to true
+  // if (clear) {
+  //   parentElement.innerHTML = "";
+  // }
+
+  // Generate HTML using the provided template function
+  const htmlStrings = data.map(templateFn);
+
+  // Insert the generated HTML into the parent element
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
 // Render a single template into a parent element
 // Added this function for rendering a single HTML template
-export function renderWithTemplate(template, parent, data) {
-  const clone = template.content.cloneNode(true); // Clone the template content
-  if (data) {
-    // Replace placeholders in the template with data
-    Object.keys(data).forEach((key) => {
-      const element = clone.querySelector(`[data-${key}]`);
-      if (element) {
-        element.textContent = data[key];
-      }
-    });
-  }
-  parent.appendChild(clone); // Append the cloned content to the parent
-}
+// export function renderWithTemplate(template, parent, data) {
+//   const clone = template.content.cloneNode(true); // Clone the template content
+//   if (data) {
+//     // Replace placeholders in the template with data
+//     Object.keys(data).forEach((key) => {
+//       const element = clone.querySelector(`[data-${key}]`);
+//       if (element) {
+//         element.textContent = data[key];
+//       }
+//     });
+//   }
+//   parent.appendChild(clone); // Append the cloned content to the parent
+// }
 
 // Fetch HTML template from a file
 // Added this function to fetch templates dynamically
@@ -74,5 +88,21 @@ export async function loadTemplate(templatePath) {
   } catch (error) {
     console.error("Error loading template:", error);
     throw error; // Re-throw the error for better handling by the caller
+  }
+}
+
+export async function loadHeaderFooter() {
+
+  try {
+    const headerTemplate = await loadTemplate("/partials/header.html");
+    const headerElement = document.querySelector("#main-header");
+    const footerTemplate = await loadTemplate("/partials/footer.html");
+    const footerElement = document.querySelector("#main-footer");
+
+    renderWithTemplate(headerTemplate, headerElement, footerElement, footerTemplate);
+    
+  } catch (error) {
+    console.error("Error loading header/footer:", error);
+    throw error;
   }
 }
