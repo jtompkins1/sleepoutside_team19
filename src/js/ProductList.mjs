@@ -22,7 +22,7 @@ export default class ProductListing {
   
     async init() {
       // Fetch the data (assumes getData() returns a Promise)
-      const list = await this.dataSource.getData();
+      const list = await this.dataSource.getData(this.category);
       // Log to confirm data retrieval
       // eslint-disable-next-line no-console
       console.log('Data fetched:', list);
