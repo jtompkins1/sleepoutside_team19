@@ -120,4 +120,3 @@ document.getElementById("clearCart").addEventListener("click", clearCart);
     console.error("Clear cart button not found in the DOM.");
   }
 });
-

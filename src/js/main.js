@@ -8,14 +8,28 @@ const dataSource = new ProductData('tents'); // Replace 'tents' with the appropr
 // Select the HTML element where the product list will be rendered
 const listElement = document.querySelector('.product-list'); // Ensure this class exists in your HTML
 
+// Check if the list element exists
+if (!listElement) {
+  console.error('Error: The product list element is missing in the HTML.');
+} else {
+  console.warn('Product list element found:', listElement);
+}
+
 // Create an instance of ProductListing
 const productListing = new ProductListing('tents', dataSource, listElement);
 
-// Initialize the ProductListing class
-productListing.init();
+// Create an instance of Alert
+const alert = new Alert();
 
-//Create an instance of Alert
-alert = new Alert();
-
-//Initialize the Alert class
-alert.init();
+// Add error handling during initialization
+try {
+  // Initialize the ProductListing
+  productListing.init();
+  
+  // Initialize the Alert system
+  alert.init();
+  
+  console.warn('Product listing and alert system initialized successfully.');
+} catch (error) {
+  console.error('Error during initialization:', error);
+}
