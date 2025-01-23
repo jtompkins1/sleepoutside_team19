@@ -53,15 +53,25 @@ export default class ProductDetails {
     }
   }
 
+  // Updated addToCart function to handle adding products to the cart
   addToCart() {
     if (!this.product) {
       console.error("Cannot add an undefined product to the cart.");
       return;
     }
-
+  
     let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
     cart = Array.isArray(cart) ? cart : [cart];
-    cart.push(this.product);
+  
+    const existingItemIndex = cart.findIndex(item => item.Id === this.product.Id);
+  
+    if (existingItemIndex >= 0) {
+      cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
+    } else {
+      this.product.quantity = 1;
+      cart.push(this.product);
+    }
+  
     setLocalStorage("so-cart", cart);
   }
 
