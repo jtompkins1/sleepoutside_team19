@@ -7,33 +7,18 @@ import Alert from './Alert.mjs'; // Import the Alert class
 loadHeaderFooter(); // Dynamically fetch and render header and footer
 
 // Create an instance of ProductData for fetching product data
-const dataSource = new ProductData('tents'); // Replace 'tents' with the appropriate category if needed
+const dataSource = new ProductData('all'); // Use 'all' to fetch products from all categories
 
 // Select the HTML element where the product list will be rendered
 const listElement = document.querySelector('.product-list'); // Ensure this class exists in your HTML
 
-// Check if the list element exists
-if (!listElement) {
-  console.error('Error: The product list element is missing in the HTML.');
-} else {
-  console.warn('Product list element found:', listElement);
-}
-
 // Create an instance of ProductListing
-const productListing = new ProductListing('tents', dataSource, listElement);
-
-// Create an instance of Alert
-const alert = new Alert();
+const productListing = new ProductListing('top-products', dataSource, listElement);
 
 // Add error handling during initialization
 try {
-  // Initialize the ProductListing
-  productListing.init();
-  
-  // Initialize the Alert system
-  alert.init();
-  
-  console.warn('Product listing and alert system initialized successfully.');
+  productListing.initTopProducts(4);
+  new Alert().init();
 } catch (error) {
-  console.error('Error during initialization:', error);
+  console.error('Error:', error);
 }

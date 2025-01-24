@@ -1,54 +1,71 @@
 import { renderListWithTemplate } from "./utils.mjs"; // Import the utility function
 
 function productCardTemplate(product) {
+  // Check both `product.Image` (local paths) and `product.Images.PrimaryLarge` (external links)
+  const imageUrl = product.Image || product.Images?.PrimaryLarge || "/images/default-product.jpg";
+
   return `<li class="product-card">
     <a href="/product-pages/?product=${product.Id}"> <!-- Absolute Path -->
-      <img src="${product.Image}" alt="Image of ${product.Name}">
-      <h3 class="card__brand">${product.Brand.Name}</h3>
-      <h2 class="card__name">${product.NameWithoutBrand}</h2>
-      <p class="product-card__price">$${product.FinalPrice}</p>
+      <img src="${imageUrl}" alt="Image of ${product.Name}">
+      <h3 class="card__brand">${product.Brand?.Name || "Unknown Brand"}</h3>
+      <h2 class="card__name">${product.NameWithoutBrand || "Unnamed Product"}</h2>
+      <p class="product-card__price">$${product.FinalPrice || "N/A"}</p>
     </a>
   </li>`;
 }
 
 
+
 export default class ProductListing {
-    constructor(category, dataSource, listElement) {
-      // Make the class flexible and reusable by passing in category, data source, and target HTML element
-      this.category = category;
-      this.dataSource = dataSource;
-      this.listElement = listElement;
-    }
-  
-    async init() {
-      // Fetch the data (assumes getData() returns a Promise)
+  constructor(category, dataSource, listElement) {
+    // Make the class flexible and reusable by passing in category, data source, and target HTML element
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+  }
+
+  async init() {
+    try {
+      // Fetch all products
       const list = await this.dataSource.getData();
-      // Log to confirm data retrieval
-      // eslint-disable-next-line no-console
-      console.log('Data fetched:', list);
+      console.warn("Data fetched:", list); // Log to confirm data retrieval
 
-      // Filter the list to show only the first 4 products
-      const filteredList = this.filterProducts(list, 4);
+      // Render all products
+      this.renderList(list);
+    } catch (error) {
+      console.error("Error initializing ProductListing:", error);
+    }
+  }
 
-      // Log to confirm filtered data
-      // eslint-disable-next-line no-console
-      console.log("Filtered list of products:", filteredList);
+  // New Method for Top Products
+  async initTopProducts(count) {
+    try {
+      // Fetch all products
+      const list = await this.dataSource.getData();
+      console.warn("Fetched products:", list); // Log fetched products
 
-      // Use the reusable utility function to render the filtered list
-      this.renderList(filteredList);
+      // Filter the list to show only the top `count` products
+      const topProducts = this.filterProducts(list, count);
+
+      console.warn("Top products:", topProducts); // Log filtered products
+
+      // Render the top products
+      this.renderList(topProducts);
+    } catch (error) {
+      console.error("Error fetching top products:", error);
     }
-  
-    renderList(list) {
-        // Render the list of products dynamically
-        // eslint-disable-next-line no-console
-        console.log('Rendering list of products:', list);
-      
-        // Use the reusable renderListWithTemplate function to render the list
-        renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
-    }
-    
-    // New method to filter the list of products
-    filterProducts(list, count) {
-      return list.slice(0, count); // Returns the first 'count' items from the list
-    }
+  }
+
+  renderList(list) {
+    // Render the list of products dynamically
+    console.warn("Rendering list of products:", list);
+
+    // Use the reusable renderListWithTemplate function to render the list
+    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
+  }
+
+  // Helper Method to Filter Products
+  filterProducts(list, count) {
+    return list.slice(0, count); // Returns the first 'count' items from the list
+  }
 }

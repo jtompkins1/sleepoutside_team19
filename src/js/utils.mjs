@@ -78,19 +78,16 @@ export async function loadTemplate(templatePath) {
 // **Add this function**
 export async function loadHeaderFooter() {
   try {
-    // Fetch and load the header
-    const headerTemplate = await loadTemplate("../partials/header.html");
+    // Use absolute paths for the header and footer templates
+    const headerTemplate = await loadTemplate("/partials/header.html"); // Changed to absolute path
+    const footerTemplate = await loadTemplate("/partials/footer.html"); // Changed to absolute path
+
     const headerElement = document.querySelector("#main-header");
-    renderWithTemplate(headerTemplate, headerElement);
-    
-
-    // Fetch and load the footer
-    const footerTemplate = await loadTemplate("../partials/footer.html");
     const footerElement = document.querySelector("#main-footer");
-    renderWithTemplate(footerTemplate, footerElement);
-   
 
-    // Log to confirm successful loading
+    renderWithTemplate(headerTemplate, headerElement);
+    renderWithTemplate(footerTemplate, footerElement);
+
     console.warn("Header and Footer loaded successfully!");
   } catch (error) {
     console.error("Error loading header or footer:", error);
