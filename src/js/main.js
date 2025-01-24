@@ -1,3 +1,4 @@
+// Load the header and footer
 import { loadHeaderFooter } from "./utils.mjs"; // Import loadHeaderFooter
 import ProductListing from './ProductList.mjs'; // Import the ProductListing class
 import ProductData from './ProductData.mjs'; // Import the ProductData class
@@ -15,7 +16,7 @@ const listElement = document.querySelector('.product-list'); // Ensure this clas
 // Create an instance of ProductListing
 const productListing = new ProductListing('top-products', dataSource, listElement);
 
-// Add error handling during initialization
+// Added error handling during initialization
 try {
   productListing.initTopProducts(4);
   new Alert().init();

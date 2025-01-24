@@ -24,7 +24,7 @@ function cartItemTemplate(item) {
     </li>`;
   }
   
-  
+  // ShoppingCart Class
 export default class ShoppingCart {
     constructor(parentSelector) {
         this.parentElement = document.querySelector(parentSelector);

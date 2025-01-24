@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-
+// https://vitejs.dev/config/
 export default defineConfig({
   root: "src/", // Specifies the source directory for the project
   base: "/", // Ensures absolute paths in the build output

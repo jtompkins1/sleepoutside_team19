@@ -87,7 +87,7 @@ export default class ProductDetails {
     setLocalStorage("so-cart", cart);
   }  
   
-
+  // Updated renderProductDetails method to use the productDetailsTemplate
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     if (!element) {

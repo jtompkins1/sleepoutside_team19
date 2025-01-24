@@ -7,7 +7,7 @@ function convertToJson(res) {
     throw new Error("Bad Response");
   }
 }
-
+// **Added this class here**
 export default class ProductData {
   constructor(category) {
     this.category = category;

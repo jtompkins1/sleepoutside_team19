@@ -29,7 +29,7 @@ function handleSubmit(e) {
   localStorage.removeItem('so-cart');
   window.location.href = '/';
 }
-
+// Attach listeners AFTER rendering content
 document.addEventListener("DOMContentLoaded", async () => {
   await loadHeaderFooter();
   renderCheckoutItems();

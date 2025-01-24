@@ -82,8 +82,8 @@ export async function loadHeaderFooter() {
     const headerTemplate = await loadTemplate("/partials/header.html"); // Changed to absolute path
     const footerTemplate = await loadTemplate("/partials/footer.html"); // Changed to absolute path
 
-    const headerElement = document.querySelector("#main-header");
-    const footerElement = document.querySelector("#main-footer");
+    const headerElement = document.querySelector("#main-header"); // Changed to match the ID in the HTML
+    const footerElement = document.querySelector("#main-footer"); // Changed to match the ID in the HTML
 
     renderWithTemplate(headerTemplate, headerElement);
     renderWithTemplate(footerTemplate, footerElement);

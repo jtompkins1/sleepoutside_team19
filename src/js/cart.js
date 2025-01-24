@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Clear cart button not found in the DOM.");
   }
 
-  // Attach the handleProceedToCheckout function to the "Proceed to Checkout" button
+  // Attached the handleProceedToCheckout function to the "Proceed to Checkout" button
   const proceedToCheckoutButton = document.getElementById("proceedToCheckout");
   if (proceedToCheckoutButton) {
     proceedToCheckoutButton.addEventListener("click", handleProceedToCheckout);

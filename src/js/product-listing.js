@@ -1,3 +1,4 @@
+// Load the header and footer
 import { loadHeaderFooter } from "../js/utils.mjs";
 import ProductListing from "../js/ProductList.mjs";
 import ProductData from "../js/ProductData.mjs";

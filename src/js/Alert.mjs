@@ -42,7 +42,7 @@ export default class Alert {
         }
     }
 
-        // Method to initialize and display alerts
+        // Method to initialize and display alert(s)
         async init() {
             await this.loadAlerts();
             this.show();
