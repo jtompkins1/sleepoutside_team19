@@ -46,7 +46,6 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 }
 
 // Render a single template into a parent element
-// Added this function for rendering a single HTML template
 export function renderWithTemplate(template, parent, data) {
   const clone = template.content.cloneNode(true); // Clone the template content
   if (data) {
@@ -62,7 +61,6 @@ export function renderWithTemplate(template, parent, data) {
 }
 
 // Fetch HTML template from a file
-// Added this function to fetch templates dynamically
 export async function loadTemplate(templatePath) {
   try {
     const response = await fetch(templatePath);
@@ -76,3 +74,24 @@ export async function loadTemplate(templatePath) {
     throw error; // Re-throw the error for better handling by the caller
   }
 }
+
+// **Add this function**
+export async function loadHeaderFooter() {
+  try {
+    // Use absolute paths for the header and footer templates
+    const headerTemplate = await loadTemplate("/partials/header.html"); // Changed to absolute path
+    const footerTemplate = await loadTemplate("/partials/footer.html"); // Changed to absolute path
+
+    const headerElement = document.querySelector("#main-header");
+    const footerElement = document.querySelector("#main-footer");
+
+    renderWithTemplate(headerTemplate, headerElement);
+    renderWithTemplate(footerTemplate, footerElement);
+
+    console.warn("Header and Footer loaded successfully!");
+  } catch (error) {
+    console.error("Error loading header or footer:", error);
+  }
+}
+
+

@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src/", // Specifies the source directory for the project
-
+  base: "/", // Ensures absolute paths in the build output
   build: {
     outDir: "../dist", // Specifies the output directory for the built files
     emptyOutDir: true, // Ensures the dist folder is cleared before each build
@@ -11,7 +11,9 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"), // Entry for the main index.html
         cart: resolve(__dirname, "src/cart/index.html"), // Entry for the cart page
-        checkout: resolve(__dirname, "src/checkout/index.html"), // Entry for the checkout page
+        checkout: resolve(__dirname, "src/checkout/index.html"), // Entry for the cart checkout page
+        cartCheckout: resolve(__dirname, "src/cart/checkout.html"), // Entry for cart/checkout page
+        productListing: resolve(__dirname, "src/product-listing/index.html"), // NEW entry for product-listing page
         product1: resolve(
           __dirname,
           "src/product-pages/cedar-ridge-rimrock-2.html"

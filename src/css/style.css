@@ -108,13 +108,14 @@ button {
 }
 .cart:hover svg {
   fill: gray;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
 }
 
 .clear-cart-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #f44336; /* Red background */
+  background-color: #dc3545; /* Red background */
   color: white;
   font-size: 1rem;
   font-weight: bold;
@@ -125,6 +126,15 @@ button {
 
 .clear-cart-button:hover {
   background-color: #d32f2f; /* Darker red on hover */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#proceedToCheckout {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  background-color: var(--secondary-color);
+  border-radius: 4px;
 }
 
 /* End cart icon styles */
@@ -157,7 +167,18 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  padding: 1rem;
+ border-radius: 8px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+ transition: transform 0.2s;
 }
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+ }
+
 .product-card h2,
 .product-card h3,
 .product-card p {
@@ -169,33 +190,93 @@ button {
 }
 
 .card__name {
-  font-size: 1em;
+font-size: 1em;
+font-weight: bold;
+color: var(--secondary-color);
 }
+
+.product-card__price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
 /* End product list card */
 
 .product-detail {
   padding: 1em;
   max-width: 500px;
   margin: auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
 }
 
 .product-detail img {
   width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.product-detail h2 {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.product-detail h3 {
+  color: var(--dark-grey);
+  font-size: 1.5rem;
+}
+
+.product__color {
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.product__description {
+  line-height: 1.6;
+  margin: 1.5rem 0;
+}
+
+.product-detail__add button {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  transition: background-color 0.3s ease;
+  border-radius: 3px;
+}
+
+.product-detail__add button:hover {
+  background-color: #3e440b;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
 }
 
 /* Start cart list card styles */
 .cart-card {
   display: grid;
+  grid-template-columns: 120px 1fr 120px; /* Adjusted for the image */
+  gap: 1.5em; /* Adjusted for the image */
   position: relative;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  background-color: #f8f8f8; /* Light gray background */
+  padding: 1.5rem; /* Padding around the card */
+  margin-bottom: 1rem; /* Spacing between cards */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Drop shadow */
+  width: 100%;
+  max-width: none;
 }
 
 .cart-card__image {
   grid-row: 1/3;
   grid-column: 1;
+  width: 100%;
+  border-radius: 4px;
 }
 .cart-card p {
   margin-top: 0;
@@ -203,6 +284,9 @@ button {
 .cart-card .card__name {
   grid-row: 1;
   grid-column: 2;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .cart-card__color {
@@ -232,27 +316,233 @@ button {
 
 .cart-card .remove-item:hover {
   transform: scale(1.3);
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
 }
 
 
 /* Styling for the cart footer */
 .cart-footer {
-  padding: 15px;
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
   text-align: right;
-  background-color: #f9f9f9;
-  border-top: 1px solid #e0e0e0;
 }
 
 /* Styling for the total price */
 .cart-total {
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
   margin: 0;
+  color: var(--dark-grey);
 }
 
 /* Hide class for conditional display */
 .hide {
   display: none;
+}
+
+/* Cart Page Styles */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.quantity-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.quantity {
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.checkout-button {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  background-color: var(--secondary-color);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #3e440b;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+/* Checkout Page Styles */
+.checkout {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.checkout-list {
+  list-style: none;
+  padding: 0;
+}
+
+.checkout-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.checkout-item img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.order-summary {
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.checkout-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--dark-grey);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(82, 91, 15, 0.1);
+}
+
+.checkout-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.checkout-button:hover {
+  background-color: #3e440b;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+/* Category grid styling */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Space between items */
+  margin: 2rem 0; /* Add spacing above and below */
+  padding: 0 1rem;
+}
+
+.category-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  border: 2px solid var(--light-grey);
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.3s;
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+.category-box:hover {
+  transform: translateY(-5px); /* Lift slightly on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+  border-color: var(--primary-color); /* Highlight border */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+.category-box img {
+  width: 80px; /* Icon size */
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.categories {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9; /* Light background to separate the section visually */
+  border-radius: 8px; /* Rounded corners for the section */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+
+.categories h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* A subtle spacing effect */
+  border-bottom: 2px solid var(--primary-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+
+.category-box h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--secondary-color); /* Stylish accent color */
+  margin-top: 0.5rem;
+}
+
+/* Added a subtle hover effect to the category icons */
+.category-box img:hover {
+  filter: brightness(1.2); /* Slightly brighten the icon on hover */
+  transition: filter 0.2s ease-in-out;
+  
 }
 
 
@@ -267,8 +557,21 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+    
   }
 }
+
+.category-grid {
+  gap: 40px; /* Increase spacing between boxes on larger screens */
+}
+.category-box img {
+  width: 100px; /* Larger icons on wider screens */
+  height: 100px;
+}
+.category-box h3 {
+  font-size: 1.3rem;
+}
+
 
 footer {
   font-size: var(--small-font);
