@@ -23,7 +23,7 @@ export default class ProductListing {
     this.dataSource = dataSource;
     this.listElement = listElement;
   }
-
+  // Updated init method to handle top products
   async init() {
     try {
       // Fetch all products
