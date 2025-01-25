@@ -27,7 +27,7 @@ export default class ProductListing {
   async init() {
     try {
       // Fetch all products
-      const list = await this.dataSource.getData();
+      const list = await this.dataSource.getData(this.category);
       console.warn("Data fetched:", list); // Log to confirm data retrieval
 
       // Render all products
