@@ -1,5 +1,5 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import {loadHeaderFooter} from './utils.mjs'; // Import the load HeaderFooter function
+import { getLocalStorage, setLocalStorage, loadHeaderFooter} from "./utils.mjs";
+
 loadHeaderFooter(); // Load the header and footer on page load
 
 // Function to calculate the total price of items in the cart

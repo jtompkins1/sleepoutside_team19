@@ -54,6 +54,7 @@ export function renderWithTemplate(templateFn, parentElement, data, position = "
 
   // Generate HTML using the provided template function
   const htmlStrings = data.map(templateFn);
+  
 
   // Insert the generated HTML into the parent element
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
