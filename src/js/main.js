@@ -4,6 +4,32 @@ import ProductListing from './ProductList.mjs'; // Import the ProductListing cla
 import ProductData from './ProductData.mjs'; // Import the ProductData class
 import Alert from './Alert.mjs'; // Import the Alert class
 
+/// 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for all dynamic content to be loaded if necessary
+    setTimeout(() => {
+        try {
+            const cart = new ShoppingCart('#cart-list'); // Confirm this selector matches an existing element
+            cart.init();
+        } catch (error) {
+            console.error('Failed to initialize ShoppingCart:', error);
+        }
+    }, 100); // Adjust this delay based on when your dynamic content loads
+});
+
+
+
+
+
+
+/// 
+
+
+
+
+
 
 
 // Load the header and footer
