@@ -3,15 +3,16 @@ import { loadHeaderFooter } from "./utils.mjs"; // Import loadHeaderFooter
 import ProductListing from './ProductList.mjs'; // Import the ProductListing class
 import ProductData from './ProductData.mjs'; // Import the ProductData class
 import Alert from './Alert.mjs'; // Import the Alert class
+import ShoppingCart from "./ShoppingCart.mjs";
 
-/// 
+/// WORKSPACE
 
 
 document.addEventListener('DOMContentLoaded', () => {
     // Wait for all dynamic content to be loaded if necessary
     setTimeout(() => {
         try {
-            const cart = new ShoppingCart('#cart-list'); // Confirm this selector matches an existing element
+            const cart = new ShoppingCart('cart-count'); // Confirm this selector matches an existing element
             cart.init();
         } catch (error) {
             console.error('Failed to initialize ShoppingCart:', error);
@@ -22,9 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-/// 
+/// WORKSPACE
 
 
 
