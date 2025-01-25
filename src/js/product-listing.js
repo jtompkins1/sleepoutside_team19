@@ -8,7 +8,8 @@ import { getParam } from "../js/utils.mjs";
 loadHeaderFooter();
 
 // Get the category parameter from the URL
-let category = getParam("category");
+const category = getParam("category");
+
 if (!category) {
     console.error("No category parameter found");
     // Set a default category if none is found
@@ -18,7 +19,7 @@ if (!category) {
 }
 
 // Create a data source instance based on the category
-const dataSource = new ProductData(category);
+const dataSource = new ProductData();
 
 // Select the HTML element where the product list will be rendered
 const listElement = document.querySelector(".product-list");
