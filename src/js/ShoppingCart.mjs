@@ -40,6 +40,7 @@ export default class ShoppingCart {
   async init() {
     this.renderCart();
     this.bindButtons();
+    this.updateCartCount(); // Initial count update
   }
 
   calculateTotal() {
@@ -53,6 +54,7 @@ export default class ShoppingCart {
   renderCart() {
     if (!this.cartItems.length) {
       this.parentElement.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+      this.updateCartCount(); // Update count when cart is empty
       return;
     }
   
@@ -69,8 +71,9 @@ export default class ShoppingCart {
     this.parentElement.innerHTML = htmlItems.join("");
     document.querySelector(".cart-total").textContent = `Total: $${this.calculateTotal()}`;
     document.querySelector(".cart-footer").classList.remove("hide");
+    
+    this.updateCartCount(); // Update count after rendering
   }
-  
 
   updateQuantity(productId, change) {
     const itemIndex = this.cartItems.findIndex(item => item.Id === productId);
@@ -78,20 +81,20 @@ export default class ShoppingCart {
       this.cartItems[itemIndex].quantity = (this.cartItems[itemIndex].quantity || 1) + change;
       if (this.cartItems[itemIndex].quantity < 1) this.cartItems[itemIndex].quantity = 1;
       setLocalStorage("so-cart", this.cartItems);
-      this.renderCart();
+      this.renderCart(); // RenderCart will call updateCartCount
     }
   }
 
   removeItem(productId) {
     this.cartItems = this.cartItems.filter(item => item.Id !== productId);
     setLocalStorage("so-cart", this.cartItems);
-    this.renderCart();
+    this.renderCart(); // RenderCart will call updateCartCount
   }
 
   clearCart() {
     localStorage.removeItem("so-cart");
     this.cartItems = [];
-    this.renderCart();
+    this.renderCart(); // RenderCart will call updateCartCount
   }
 
   bindButtons() {
@@ -108,6 +111,15 @@ export default class ShoppingCart {
     const clearCartBtn = document.getElementById("clearCart");
     if (clearCartBtn) {
       clearCartBtn.addEventListener("click", () => this.clearCart());
+    }
+  }
+
+  // New method to update cart count
+  updateCartCount() {
+    const count = this.cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    const cartCountElement = document.querySelector('.cart-count');
+    if (cartCountElement) {
+      cartCountElement.textContent = count;
     }
   }
 }

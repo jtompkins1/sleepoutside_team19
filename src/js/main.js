@@ -4,6 +4,8 @@ import ProductListing from './ProductList.mjs'; // Import the ProductListing cla
 import ProductData from './ProductData.mjs'; // Import the ProductData class
 import Alert from './Alert.mjs'; // Import the Alert class
 
+
+
 // Load the header and footer
 loadHeaderFooter(); // Dynamically fetch and render header and footer
 
