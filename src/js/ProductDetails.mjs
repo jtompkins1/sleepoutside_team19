@@ -1,6 +1,7 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage} from "./utils.mjs";
 
 function productDetailsTemplate(product) {
+
   return `<section class="product-detail">
     <h3>${product.Brand?.Name || "No Brand Available"}</h3>
     <h2 class="divider">${product.NameWithoutBrand || "Unknown Product"}</h2>

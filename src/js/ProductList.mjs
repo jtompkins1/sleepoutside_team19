@@ -1,8 +1,11 @@
-import { renderListWithTemplate } from "./utils.mjs"; // Import the utility function
+//ProdcutList.mjs
+import { renderListWithTemplate, calculateDiscount } from "./utils.mjs"; // Import the utility function
 
 function productCardTemplate(product) {
   // Check both `product.Image` (local paths) and `product.Images.PrimaryLarge` (external links)
   const imageUrl = product.Image || product.Images?.PrimaryLarge || "/images/default-product.jpg";
+  // Calculate the discount percentage
+  const discount = calculateDiscount(product.FinalPrice, product.SuggestedRetailPrice);
 
   return `<li class="product-card">
     <a href="/product-pages/?product=${product.Id}"> <!-- Absolute Path -->
@@ -10,6 +13,8 @@ function productCardTemplate(product) {
       <h3 class="card__brand">${product.Brand?.Name || "Unknown Brand"}</h3>
       <h2 class="card__name">${product.NameWithoutBrand || "Unnamed Product"}</h2>
       <p class="product-card__price">$${product.FinalPrice || "N/A"}</p>
+      ${discount ? `<p class="product-card__discount">${discount}</p>` : ""}
+
     </a>
   </li>`;
 }

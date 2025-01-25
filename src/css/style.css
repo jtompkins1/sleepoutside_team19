@@ -201,6 +201,10 @@ color: var(--secondary-color);
   margin-top: 0.5rem;
 }
 
+.product-card__discount {
+  color: #d9534f;
+  font-weight: bold;
+}
 /* End product list card */
 
 .product-detail {

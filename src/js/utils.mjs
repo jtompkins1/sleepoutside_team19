@@ -1,3 +1,4 @@
+//utils.mjs
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -29,6 +30,15 @@ export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
+}
+
+// calculate discount percentage
+export function calculateDiscount(FinalPrice, SuggestedRetailPrice) {
+  if (FinalPrice < SuggestedRetailPrice) {
+    const discount = ((SuggestedRetailPrice - FinalPrice) / SuggestedRetailPrice) * 100;
+    return `${discount.toFixed(2)}% OFF`;
+  }
+  return null;
 }
 
 // Renders a list of items using a provided template function
