@@ -4,12 +4,30 @@ import { renderListWithTemplate, calculateDiscount } from "./utils.mjs"; // Impo
 function productCardTemplate(product) {
   // Check both `product.Image` (local paths) and `product.Images.PrimaryLarge` (external links)
   const imageUrl = product.Image || product.Images?.PrimaryLarge || "/images/default-product.jpg";
+
+  //Define different image sizes 
+  const srcSet = `
+    ${product.Images?.PrimarySmall || "/images/default-product-small.jpg"} 300w,
+    ${product.Images?.PrimaryMedium || "/images/default-product-medium.jpg"} 600w,
+    ${product.Images?.PrimaryLarge || imageUrl} 1200w
+  `;
+  //Use the attribute 'sizes' to determine what size the image will use.
+  const sizes = `
+    (max-width: 600px) 300px,
+    (max-width: 1200px) 600px,
+    1200px
+  `;
+
   // Calculate the discount percentage
   const discount = calculateDiscount(product.FinalPrice, product.SuggestedRetailPrice);
 
   return `<li class="product-card">
     <a href="/product-pages/?product=${product.Id}"> <!-- Absolute Path -->
-      <img src="${imageUrl}" alt="Image of ${product.Name}">
+      <img 
+        src="${imageUrl}"
+        srcset="${srcSet}"
+        sizes="${sizes}"
+        alt="Image of ${product.Name}">
       <h3 class="card__brand">${product.Brand?.Name || "Unknown Brand"}</h3>
       <h2 class="card__name">${product.NameWithoutBrand || "Unnamed Product"}</h2>
       <p class="product-card__price">$${product.FinalPrice || "N/A"}</p>
