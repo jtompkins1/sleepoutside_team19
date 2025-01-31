@@ -15,7 +15,7 @@ export default class ExternalServices {
   constructor(category) {
     this.category = category;
     this.path = `/json/${this.category}.json`; // Path to fetch data for a specific category
-    this.checkoutUrl = `${import.meta.env.VITE_SERVER_URL}/checkout`; // Added checkout API URL
+    this.checkoutUrl = `${import.meta.env.VITE_SERVER_URL.replace(/\/$/, '')}/checkout`;
 
   }
 
@@ -53,24 +53,33 @@ export default class ExternalServices {
   }
 
    // **✅ Updated method name from submitOrder() to checkout() for consistency**
-   async checkout(orderDetails) {
-    try {
-      const response = await fetch(this.checkoutUrl, {
+async checkout(orderDetails) {
+  try {
+      // Debugging Logs ✅
+      console.error("VITE_SERVER_URL:", import.meta.env.VITE_SERVER_URL);
+      console.error("VITE_API_KEY:", import.meta.env.VITE_API_KEY);
+
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL.replace(/\/$/, '')}/checkout`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderDetails),
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${import.meta.env.VITE_API_KEY}` // Ensure API key is sent
+          },
+          body: JSON.stringify(orderDetails),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit order."); // ✅ Added better error handling
+          throw new Error("Failed to submit order."); 
       }
 
-      return await response.json(); // ✅ Returns server response
-    } catch (error) {
+      return await response.json(); 
+  } catch (error) {
       console.error("Order submission failed:", error);
       throw error;
-    }
   }
+}
+
+  
 
   // **Added this method here**
   async findProductById(id) {
