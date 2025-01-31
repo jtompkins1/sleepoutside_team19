@@ -1,17 +1,22 @@
 
-// Helper function to convert fetch responses to JSON
-function convertToJson(res) {
+// ** Added this helper function to convert response to JSON**
+async function convertToJson(res) {
+  const jsonResponse = await res.json(); // Convert response to JSON first
+
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: jsonResponse };
   }
 }
+
 // **Added this class here**
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
     this.path = `/json/${this.category}.json`; // Path to fetch data for a specific category
+    this.checkoutUrl = `${import.meta.env.VITE_SERVER_URL}/checkout`; // Added checkout API URL
+
   }
 
   // Updated getData() method to handle "all" categories
@@ -44,6 +49,26 @@ export default class ProductData {
         console.error(`Error fetching data for category ${this.category}:`, error);
         throw error;
       }
+    }
+  }
+
+   // **✅ Updated method name from submitOrder() to checkout() for consistency**
+   async checkout(orderDetails) {
+    try {
+      const response = await fetch(this.checkoutUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderDetails),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit order."); // ✅ Added better error handling
+      }
+
+      return await response.json(); // ✅ Returns server response
+    } catch (error) {
+      console.error("Order submission failed:", error);
+      throw error;
     }
   }
 

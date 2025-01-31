@@ -14,6 +14,7 @@ export default defineConfig({
         checkout: resolve(__dirname, "src/checkout/index.html"), // Entry for the cart checkout page
         cartCheckout: resolve(__dirname, "src/cart/checkout.html"), // Entry for cart/checkout page
         productListing: resolve(__dirname, "src/product-listing/index.html"), // NEW entry for product-listing page
+        orderConfirmation: resolve(__dirname, "src/checkout/order-confirmation.html"), // This line for the order confirmation page
         product1: resolve(
           __dirname,
           "src/product-pages/cedar-ridge-rimrock-2.html"

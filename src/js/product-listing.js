@@ -1,7 +1,7 @@
 // Load the header and footer
 import { loadHeaderFooter } from "../js/utils.mjs";
 import ProductListing from "../js/ProductList.mjs";
-import ProductData from "../js/ProductData.mjs";
+import ExternalServices from "../js/ExternalServices.mjs";
 import { getParam } from "../js/utils.mjs";
 
 // Dynamically load the header and footer
@@ -18,7 +18,7 @@ if (!category) {
 }
 
 // Create a data source instance based on the category
-const dataSource = new ProductData(category);
+const dataSource = new ExternalServices(category);
 
 // Select the HTML element where the product list will be rendered
 const listElement = document.querySelector(".product-list");
