@@ -104,4 +104,37 @@ export async function loadHeaderFooter() {
   }
 }
 
+// Added alertMessage function | 
+export function alertMessage(message, scroll = true) { 
+  // Create an alert div
+  const alert = document.createElement("div"); 
+  alert.classList.add("alert"); 
+  alert.style.background = "#fffae6"; 
+  alert.style.border = "1px solid #ffcc00"; 
+  alert.style.padding = "10px"; 
+  alert.style.color = "#cc9900"; 
+  alert.style.textAlign = "center"; 
+  alert.style.margin = "10px 0"; 
+  alert.style.fontWeight = "bold"; 
+  alert.style.borderRadius = "5px"; 
+  alert.textContent = `⚠️ ${message}`; 
+
+  // Insert alert at the top of <main>
+  const main = document.querySelector("main"); 
+  if (main) { 
+    main.prepend(alert); 
+  } 
+
+  // Scroll to the top so the user sees the message
+  if (scroll) { 
+    window.scrollTo(0, 0); 
+  } 
+
+  // Remove after 4 seconds
+  // eslint-disable-next-line no-undef
+  setTimeout(() => { 
+    alert.remove(); 
+  }, 4000); 
+} 
+
 

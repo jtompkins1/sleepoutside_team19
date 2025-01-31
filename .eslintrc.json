@@ -6,6 +6,10 @@
     "browser": true,
     "node": true
   },
+
+  "globals": {
+    "FormData": "readonly"  // Added FormData to globals to fix "FormData is not defined" error
+  },
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"

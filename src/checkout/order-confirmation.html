@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="module" src="../js/utils.mjs"></script>  <!-- ✅ Add utils.js -->
+    <script type="module">
+      import { loadHeaderFooter } from "../js/utils.mjs";
+      loadHeaderFooter();  // ✅ Load header and footer dynamically
+    </script>
+  </head>
+  <body>
+    <header class="divider" id="main-header"></header>
+    <main class="divider">
+      <section class="confirmation">
+        <h2>🎉 Thank You for Your Order!</h2>
+        <p>Your order has been successfully placed.</p>
+        <a href="/" class="button">Return to Home</a>
+      </section>
+    </main>
+    <footer id="main-footer"></footer>
+  </body>
+</html>
