@@ -85,24 +85,62 @@ export async function loadTemplate(templatePath) {
   }
 }
 
+
+
+
+
+
 // **Add this function**
 export async function loadHeaderFooter() {
   try {
-    // Use absolute paths for the header and footer templates
-    const headerTemplate = await loadTemplate("/partials/header.html"); // Changed to absolute path
-    const footerTemplate = await loadTemplate("/partials/footer.html"); // Changed to absolute path
+    const headerTemplate = await loadTemplate("/partials/header.html");
+    const footerTemplate = await loadTemplate("/partials/footer.html");
 
-    const headerElement = document.querySelector("#main-header"); // Changed to match the ID in the HTML
-    const footerElement = document.querySelector("#main-footer"); // Changed to match the ID in the HTML
+    const headerElement = document.querySelector("#main-header");
+    const footerElement = document.querySelector("#main-footer");
 
     renderWithTemplate(headerTemplate, headerElement);
     renderWithTemplate(footerTemplate, footerElement);
 
     console.warn("Header and Footer loaded successfully!");
+
+    // Generate breadcrumbs after the header loads
+    generateBreadcrumbs();
   } catch (error) {
     console.error("Error loading header or footer:", error);
   }
 }
+
+function generateBreadcrumbs() {
+  const breadcrumbContainer = document.querySelector("#breadcrumbs");
+
+  if (!breadcrumbContainer) {
+      console.warn("Breadcrumb container not found.");
+      return;
+  }
+
+  // Get current path
+  const pathParts = window.location.pathname.split("/").filter(part => part !== "");
+  let breadcrumbHTML = `<a href="/">Home</a>`;
+
+  let pathAccumulator = "";
+  pathParts.forEach((part, index) => {
+      pathAccumulator += `/${part}`;
+      if (index === pathParts.length - 1) {
+          breadcrumbHTML += ` &gt; <span class="current">${decodeURIComponent(part)}</span>`;
+      } else {
+          breadcrumbHTML += ` &gt; <a href="${pathAccumulator}">${decodeURIComponent(part)}</a>`;
+      }
+  });
+
+  breadcrumbContainer.innerHTML = breadcrumbHTML;
+}
+
+
+
+
+
+
 
 // Added alertMessage function | 
 export function alertMessage(message, scroll = true) { 
