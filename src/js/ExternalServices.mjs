@@ -77,7 +77,7 @@ async checkout(orderDetails) {
       console.error("Order submission failed:", error);
       throw error;
   }
-}
+}  
 
   
 
