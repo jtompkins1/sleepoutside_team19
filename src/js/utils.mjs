@@ -6,8 +6,6 @@ export function qs(selector, parent = document) {
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-//adding comment to test
-
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
@@ -87,59 +85,57 @@ export async function loadTemplate(templatePath) {
   }
 }
 
-
-
-
-
-
 // **Add this function**
 export async function loadHeaderFooter() {
   try {
-    const headerTemplate = await loadTemplate("/partials/header.html");
-    const footerTemplate = await loadTemplate("/partials/footer.html");
+    // Use absolute paths for the header and footer templates
+    const headerTemplate = await loadTemplate("/partials/header.html"); // Changed to absolute path
+    const footerTemplate = await loadTemplate("/partials/footer.html"); // Changed to absolute path
 
-    const headerElement = document.querySelector("#main-header");
-    const footerElement = document.querySelector("#main-footer");
+    const headerElement = document.querySelector("#main-header"); // Changed to match the ID in the HTML
+    const footerElement = document.querySelector("#main-footer"); // Changed to match the ID in the HTML
 
     renderWithTemplate(headerTemplate, headerElement);
     renderWithTemplate(footerTemplate, footerElement);
 
     console.warn("Header and Footer loaded successfully!");
-
-    // Generate breadcrumbs after the header loads
-    generateBreadcrumbs();
   } catch (error) {
     console.error("Error loading header or footer:", error);
   }
 }
 
-function generateBreadcrumbs() {
-  const breadcrumbContainer = document.querySelector("#breadcrumbs");
+// Added alertMessage function | 
+export function alertMessage(message, scroll = true) { 
+  // Create an alert div
+  const alert = document.createElement("div"); 
+  alert.classList.add("alert"); 
+  alert.style.background = "#fffae6"; 
+  alert.style.border = "1px solid #ffcc00"; 
+  alert.style.padding = "10px"; 
+  alert.style.color = "#cc9900"; 
+  alert.style.textAlign = "center"; 
+  alert.style.margin = "10px 0"; 
+  alert.style.fontWeight = "bold"; 
+  alert.style.borderRadius = "5px"; 
+  alert.textContent = `⚠️ ${message}`; 
 
-  if (!breadcrumbContainer) {
-      console.warn("Breadcrumb container not found.");
-      return;
-  }
+  // Insert alert at the top of <main>
+  const main = document.querySelector("main"); 
+  if (main) { 
+    main.prepend(alert); 
+  } 
 
-  // Get current path
-  const pathParts = window.location.pathname.split("/").filter(part => part !== "");
-  let breadcrumbHTML = `<a href="/">Home</a>`;
+  // Scroll to the top so the user sees the message
+  if (scroll) { 
+    window.scrollTo(0, 0); 
+  } 
 
-  let pathAccumulator = "";
-  pathParts.forEach((part, index) => {
-      pathAccumulator += `/${part}`;
-      if (index === pathParts.length - 1) {
-          breadcrumbHTML += ` &gt; <span class="current">${decodeURIComponent(part)}</span>`;
-      } else {
-          breadcrumbHTML += ` &gt; <a href="${pathAccumulator}">${decodeURIComponent(part)}</a>`;
-      }
-  });
-
-  breadcrumbContainer.innerHTML = breadcrumbHTML;
-}
-
-
-
+  // Remove after 4 seconds
+  // eslint-disable-next-line no-undef
+  setTimeout(() => { 
+    alert.remove(); 
+  }, 4000); 
+} 
 
 
 
