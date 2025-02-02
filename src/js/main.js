@@ -4,6 +4,8 @@ import ProductListing from './ProductList.mjs'; // Import the ProductListing cla
 import ExternalServices from './ExternalServices.mjs'; // Import the ExternalServices class
 import Alert from './Alert.mjs'; // Import the Alert class
 
+//adding comment to test
+
 // Load the header and footer
 loadHeaderFooter(); // Dynamically fetch and render header and footer
 

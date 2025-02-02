@@ -1,5 +1,7 @@
 import { setLocalStorage, alertMessage } from "./utils.mjs";
 
+//adding comment to test
+
 function productDetailsTemplate(product) {
 
   return `<section class="product-detail">

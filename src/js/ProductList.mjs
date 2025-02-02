@@ -1,6 +1,8 @@
 //ProductList.mjs
 import { renderListWithTemplate, calculateDiscount } from "./utils.mjs"; // Import the utility function
 
+//adding comment to test
+
 function productCardTemplate(product) {
   // Check both `product.Image` (local paths) and `product.Images.PrimaryLarge` (external links)
   const imageUrl = product.Image || product.Images?.PrimaryLarge || "/images/default-product.jpg";
