@@ -176,3 +176,76 @@ export function alertMessage(message, scroll = true) {
 } 
 
 
+// generate breadcrumbs
+
+export function generateBreadcrumbs() {
+  const category = getParam("category");
+  const productId = getParam("id");
+  
+  console.warn("Breadcrumb Debug:");
+  console.warn("Category:", category);
+  console.warn("Product ID:", productId);
+
+  // Don't proceed if we're on the home page
+  if (!category) {
+    console.warn("No category found - not showing breadcrumbs");
+    return;
+  }
+
+  const breadcrumbContainer = document.createElement("div");
+  breadcrumbContainer.id = "breadcrumb";
+  breadcrumbContainer.style.padding = "10px";
+  breadcrumbContainer.style.fontSize = "14px";
+  console.warn("Created breadcrumb container");
+
+  // Make it very visible for debugging
+  breadcrumbContainer.style.backgroundColor = "#e9ecef";
+  breadcrumbContainer.style.color = "#333";
+  breadcrumbContainer.style.borderBottom = "2px solid #dee2e6";
+  breadcrumbContainer.style.marginBottom = "20px";
+  breadcrumbContainer.style.width = "100%";
+  breadcrumbContainer.style.textAlign = "left";
+  breadcrumbContainer.style.paddingLeft = "20px";
+
+  const insertBreadcrumb = () => {
+    // Try multiple possible parent elements
+    const header = document.querySelector("header") || document.querySelector(".logo").closest("div");
+    if (header) {
+      console.warn("Found header element, inserting breadcrumb");
+      header.insertAdjacentElement('afterend', breadcrumbContainer);
+    } else {
+      console.warn("Could not find header element!");
+    }
+  };
+
+  if (category && !productId) {
+    // For product listing pages, wait for products to load
+    const checkProducts = () => {
+      // Changed selector to look for .product-list instead of .product-card
+      const products = document.querySelectorAll(".product-list li");
+      console.warn("Checking for products, found:", products.length);
+      
+      if (products.length > 0) {
+        // Format category string to be more readable
+        const formattedCategory = category.split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+        const text = `${formattedCategory} -> (${products.length} items)`;
+        console.warn("Setting breadcrumb text to:", text);
+        breadcrumbContainer.textContent = text;
+        insertBreadcrumb();
+      } else {
+        console.warn("No products found yet, retrying...");
+        window.setTimeout(checkProducts, 100);
+      }
+    };
+    checkProducts();
+  } else if (category && productId) {
+    console.warn("Product page detected");
+    const formattedCategory = category.split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    breadcrumbContainer.textContent = formattedCategory;
+    insertBreadcrumb();
+  }
+}
