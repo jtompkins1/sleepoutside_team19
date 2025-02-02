@@ -78,7 +78,6 @@ async checkout(orderDetails) {
       throw error;
   }
 }
-
   
 
   // **Added this method here**

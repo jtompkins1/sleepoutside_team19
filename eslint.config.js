@@ -1,6 +1,7 @@
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import importsPlugin from "eslint-plugin-import";
+
 // eslint.config.js
 export default [
   eslint.configs.recommended,

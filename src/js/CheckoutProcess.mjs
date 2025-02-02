@@ -178,5 +178,4 @@ displayError(messages) {
   }, 7000);
 }
 
-
 }
