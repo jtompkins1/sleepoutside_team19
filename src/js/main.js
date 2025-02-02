@@ -1,5 +1,5 @@
 // Load the header and footer
-import { loadHeaderFooter } from "./utils.mjs"; // Import loadHeaderFooter
+import { loadHeaderFooter, generateBreadcrumbs } from "./utils.mjs"; // Import loadHeaderFooter + generateBreadcrumbs functions
 import ProductListing from './ProductList.mjs'; // Import the ProductListing class
 import ExternalServices from './ExternalServices.mjs'; // Import the ExternalServices class
 import Alert from './Alert.mjs'; // Import the Alert class
@@ -23,3 +23,6 @@ try {
 } catch (error) {
   console.error('Error:', error);
 }
+
+// Replace your current setTimeout with this:
+generateBreadcrumbs();
