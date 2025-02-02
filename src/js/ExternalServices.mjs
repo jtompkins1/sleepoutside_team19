@@ -10,8 +10,6 @@ async function convertToJson(res) {
   }
 }
 
-//adding comment to test
-
 // **Added this class here**
 export default class ExternalServices {
   constructor(category) {

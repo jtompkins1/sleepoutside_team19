@@ -1,78 +1,116 @@
-//ProductList.mjs
-import { renderListWithTemplate, calculateDiscount } from "./utils.mjs"; // Import the utility function
+import { setLocalStorage, alertMessage } from "./utils.mjs";
 
-//adding comment to test
+function productDetailsTemplate(product) {
 
-function productCardTemplate(product) {
-  // Check both `product.Image` (local paths) and `product.Images.PrimaryLarge` (external links)
-  const imageUrl = product.Image || product.Images?.PrimaryLarge || "/images/default-product.jpg";
-  // Calculate the discount percentage
-  const discount = calculateDiscount(product.FinalPrice, product.SuggestedRetailPrice);
-
-  return `<li class="product-card">
-    <a href="/product-pages/?product=${product.Id}"> <!-- Absolute Path -->
-      <img src="${imageUrl}" alt="Image of ${product.Name}">
-      <h3 class="card__brand">${product.Brand?.Name || "Unknown Brand"}</h3>
-      <h2 class="card__name">${product.NameWithoutBrand || "Unnamed Product"}</h2>
-      <p class="product-card__price">$${product.FinalPrice || "N/A"}</p>
-      ${discount ? `<p class="product-card__discount">${discount}</p>` : ""}
-
-    </a>
-  </li>`;
+  return `<section class="product-detail">
+    <h3>${product.Brand?.Name || "No Brand Available"}</h3>
+    <h2 class="divider">${product.NameWithoutBrand || "Unknown Product"}</h2>
+    <img
+      class="divider"
+      src="${product.Image || product.Images?.PrimaryLarge || '/images/default-product.jpg'}"
+      alt="${product.NameWithoutBrand || "Product Image"}"
+    />
+    <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
+    <p class="product__color">${product.Colors[0]?.ColorName || "No Color Available"}</p>
+    <p class="product__description">${product.DescriptionHtmlSimple || ""}</p>
+    <div class="product-detail__add">
+      <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    </div>
+  </section>`;
 }
 
 
-
-export default class ProductListing {
-  constructor(category, dataSource, listElement) {
-    // Make the class flexible and reusable by passing in category, data source, and target HTML element
-    this.category = category;
+export default class ProductDetails {
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
     this.dataSource = dataSource;
-    this.listElement = listElement;
   }
-  // Updated init method to handle top products
+
   async init() {
     try {
-      // Fetch all products
-      const list = await this.dataSource.getData();
-      console.warn("Data fetched:", list); // Log to confirm data retrieval
-
-      // Render all products
-      this.renderList(list);
+      // Get the details for this specific product
+      this.product = await this.dataSource.findProductById(this.productId);
+  
+      if (!this.product) {
+        this.renderError("Product not found.");
+        return;
+      }
+  
+      this.renderProductDetails("main");
+      this.setupEventListeners();
     } catch (error) {
-      console.error("Error initializing ProductListing:", error);
+      console.error("Error loading product details:", error);
+      this.renderError("There was an error loading the product details.");
+    }
+  }
+  
+
+  setupEventListeners() {
+    const addToCartButton = document.getElementById("addToCart");
+    if (addToCartButton) {
+      addToCartButton.addEventListener("click", this.addToCart.bind(this));
+    } else {
+      console.error("Add to Cart button not found.");
     }
   }
 
-  // New Method for Top Products
-  async initTopProducts(count) {
-    try {
-      // Fetch all products
-      const list = await this.dataSource.getData();
-      console.warn("Fetched products:", list); // Log fetched products
-
-      // Filter the list to show only the top `count` products
-      const topProducts = this.filterProducts(list, count);
-
-      console.warn("Top products:", topProducts); // Log filtered products
-
-      // Render the top products
-      this.renderList(topProducts);
-    } catch (error) {
-      console.error("Error fetching top products:", error);
+  // Updated addToCart function to handle adding products to the cart
+  addToCart() {
+    if (!this.product) {
+      console.error("Cannot add an undefined product to the cart.");
+      return;
     }
+  
+    // Resolve image URL for the product (convert local paths to absolute)
+    const resolvedImage = this.product.Image
+      ? `${window.location.origin}${this.product.Image}` // Convert local paths to absolute
+      : this.product.Images?.PrimaryLarge || "/images/tents/default-tent.jpg"; // Fallback for external or missing images
+  
+    let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+    cart = Array.isArray(cart) ? cart : [cart];
+  
+    const existingItemIndex = cart.findIndex((item) => item.Id === this.product.Id);
+  
+    // Prepare product for the cart
+    const productToSave = {
+      ...this.product,
+      Image: resolvedImage, // Always store an absolute URL for the image
+    };
+  
+    if (existingItemIndex >= 0) {
+      cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
+    } else {
+      productToSave.quantity = 1;
+      cart.push(productToSave);
+    }
+  
+    setLocalStorage("so-cart", cart);
+
+    // Added success message after adding the product to the cart
+    alertMessage("Item added to cart!", false);
+  }  
+  
+  // Updated renderProductDetails method to use the productDetailsTemplate
+  renderProductDetails(selector) {
+    const element = document.querySelector(selector);
+    if (!element) {
+      console.error(`Selector ${selector} not found.`);
+      return;
+    }
+
+    element.insertAdjacentHTML(
+      "afterBegin",
+      productDetailsTemplate(this.product),
+    );
   }
 
-  renderList(list) {
-    // Render the list of products dynamically
-    console.warn("Rendering list of products:", list);
-
-    // Use the reusable renderListWithTemplate function to render the list
-    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
-  }
-
-  // Helper Method to Filter Products
-  filterProducts(list, count) {
-    return list.slice(0, count); // Returns the first 'count' items from the list
+  renderError(message) {
+    const element = document.querySelector("main");
+    if (element) {
+      element.innerHTML = `<p class="error-message">${message}</p>`;
+    } else {
+      console.error("Main element not found for rendering error.");
+    }
   }
 }

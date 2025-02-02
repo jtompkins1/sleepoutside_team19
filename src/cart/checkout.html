@@ -1,76 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Checkout</title>
+    <title>Sleep Outside | Cart</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="../js/checkout.js"></script>
-    <link rel="icon" href="data:,"> <!-- Prevents the missing favicon error -->
-
-    
+    <script type="module" src="../js/cart.js"></script>
   </head>
   <body>
     <header class="divider" id="main-header"></header>
     <main class="divider">
-        <section class="checkout">
-            <h2>Review Your Order</h2>
-            <ul class="checkout-list"></ul>
-            <div class="order-summary">
-              <h3>Order Summary</h3>
-              <p class="order-total"></p>
-              <p class="shipping-cost"></p>
-              <p class="tax-amount"></p>
-              <p class="final-total"></p>
-            </div>
-            
-            
-            <form class="checkout-form">
-              <h3>Shipping Information</h3>
-              <div class="form-group">
-                <label for="fname">First Name:</label>
-                <input type="text" id="fname" name="fname" required>
-              </div>
-              <div class="form-group">
-                <label for="lname">Last Name:</label>
-                <input type="text" id="lname" name="lname" required>
-              </div>
-              <div class="form-group">
-                <label for="street">Street Address:</label>
-                <input type="text" id="street" name="street" required>
-              </div>
-              <div class="form-group">
-                <label for="city">City:</label>
-                <input type="text" id="city" name="city" required>
-              </div>
-              <div class="form-group">
-                <label for="state">State:</label>
-                <input type="text" id="state" name="state" required>
-              </div>
-              <div class="form-group">
-                <label for="zip">Zip Code:</label>
-                <input type="text" id="zip" name="zip" required>
-              </div>
-              
-              <h3>Payment Information</h3>
-              <div class="form-group">
-                <label for="cardNumber">Card Number:</label>
-                <input type="text" id="cardNumber" name="cardNumber" required>
-              </div>
-              <div class="form-group">
-                <label for="expiration">Expiry Date:</label>
-                <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required>
-              </div>
-              <div class="form-group">
-                <label for="code">Security Code:</label>
-                <input type="text" id="code" name="code" required>
-              </div>
-              
-              <button type="submit" class="checkout-button">Complete Purchase</button>
-            </form>
-          </section>
+      <section class="products">
+        <h2>My Cart</h2>
+        <div class="cart-footer hide">
+          <p class="cart-total">Total: </p>
+        </div>
+        <button id="clearCart" class="clear-cart-button">Clear Cart</button>
+        <ul class="product-list">
+          <!-- Dynamic cart items will be rendered here -->
+        </ul>
+        <button id="proceedToCheckout" class="checkout-button">
+          Proceed to Checkout
+        </button>
+      </section>
     </main>
-    <!--Footer -->
+    <!--Footer-->
     <footer id="main-footer"></footer>
   </body>
 </html>

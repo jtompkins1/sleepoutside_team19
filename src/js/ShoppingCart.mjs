@@ -1,5 +1,4 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-//adding comment to test
 
 function cartItemTemplate(item) {
     // Use resolved image URL

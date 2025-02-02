@@ -10,5 +10,3 @@ const dataSource = new ExternalServices("all"); // Use "all" to load all product
 const product = new ProductDetails(productId, dataSource);
 
 product.init(); // Initialize and render the product details
-
-//adding comment to test
