@@ -21,6 +21,16 @@
           <div>Sleep<span class="highlight">Outside</span></div>
         </div>
       </div>
+      <!-- Modal for first-time visitors -->
+      <div id="welcome-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-button">❌</span>
+          <h2>Join Our Giveaway!</h2>
+          <p>Register now to our newsletter and get a chance to win amazing camping gear!</p>
+          <button id="register-now">Register Now</button>
+        </div>
+      </div>
+
       <section class="mission">
         <p>We spend too much time these days indoors...sitting usually.</p>
         <p>No wonder we are a mess!</p>
@@ -64,7 +74,7 @@
           <!-- Hammocks Category should be here but we do not have a hammock json file added -->
 
       <!-- Newsletter Signup Section -->
-       <section class="newsletter">
+       <section class="newsletter" id="newsletter">
         <h3>Sign Up for Our Newsletter</h3>
         <p>Get the latest updates and special offers!</p>
         <form id="newsletter-form">
@@ -80,9 +90,8 @@
     <footer id="main-footer"></footer>
     <!-- Added script reference for main.js -->
     <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/modal.js"></script>
     <script type="module" src="js/newsletter.js"></script> <!-- Added this script for functionality to the newsletter -->
-
-
     
   </body>
 </html>

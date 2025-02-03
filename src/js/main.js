@@ -3,6 +3,7 @@ import { loadHeaderFooter, generateBreadcrumbs } from "./utils.mjs"; // Import l
 import ProductListing from './ProductList.mjs'; // Import the ProductListing class
 import ExternalServices from './ExternalServices.mjs'; // Import the ExternalServices class
 import Alert from './Alert.mjs'; // Import the Alert class
+import "./modal.js";
 
 // Load the header and footer
 loadHeaderFooter(); // Dynamically fetch and render header and footer
