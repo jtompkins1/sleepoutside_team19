@@ -1,17 +1,22 @@
 
-// Helper function to convert fetch responses to JSON
-function convertToJson(res) {
+// ** Added this helper function to convert response to JSON**
+async function convertToJson(res) {
+  const jsonResponse = await res.json(); // Convert response to JSON first
+
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: jsonResponse };
   }
 }
+
 // **Added this class here**
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
     this.path = `/json/${this.category}.json`; // Path to fetch data for a specific category
+    this.checkoutUrl = `${import.meta.env.VITE_SERVER_URL.replace(/\/$/, '')}/checkout`;
+
   }
 
   // Updated getData() method to handle "all" categories
@@ -46,6 +51,35 @@ export default class ProductData {
       }
     }
   }
+
+   // **✅ Updated method name from submitOrder() to checkout() for consistency**
+async checkout(orderDetails) {
+  try {
+      // Debugging Logs ✅
+      console.error("VITE_SERVER_URL:", import.meta.env.VITE_SERVER_URL);
+      console.error("VITE_API_KEY:", import.meta.env.VITE_API_KEY);
+
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL.replace(/\/$/, '')}/checkout`, {
+        method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${import.meta.env.VITE_API_KEY}` // Ensure API key is sent
+          },
+          body: JSON.stringify(orderDetails),
+      });
+
+      if (!response.ok) {
+          throw new Error("Failed to submit order."); 
+      }
+
+      return await response.json(); 
+  } catch (error) {
+      console.error("Order submission failed:", error);
+      throw error;
+  }
+}
+
+  
 
   // **Added this method here**
   async findProductById(id) {

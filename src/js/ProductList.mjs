@@ -1,4 +1,4 @@
-//ProdcutList.mjs
+//ProductList.mjs
 import { renderListWithTemplate, calculateDiscount } from "./utils.mjs"; // Import the utility function
 
 function productCardTemplate(product) {

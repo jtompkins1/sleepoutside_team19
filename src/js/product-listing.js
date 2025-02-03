@@ -1,11 +1,17 @@
 // Load the header and footer
-import { loadHeaderFooter } from "../js/utils.mjs";
+import { loadHeaderFooter, generateBreadcrumbs } from "../js/utils.mjs";
 import ProductListing from "../js/ProductList.mjs";
-import ProductData from "../js/ProductData.mjs";
+import ExternalServices from "../js/ExternalServices.mjs";
 import { getParam } from "../js/utils.mjs";
 
-// Dynamically load the header and footer
-loadHeaderFooter();
+// Wrap the initialization in an async function
+async function init() {
+  // Wait for header and footer to load
+  await loadHeaderFooter();
+  
+  // Generate breadcrumbs after header is loaded
+  generateBreadcrumbs();
+
 
 // Get the category parameter from the URL
 let category = getParam("category");
@@ -18,7 +24,7 @@ if (!category) {
 }
 
 // Create a data source instance based on the category
-const dataSource = new ProductData(category);
+const dataSource = new ExternalServices(category);
 
 // Select the HTML element where the product list will be rendered
 const listElement = document.querySelector(".product-list");
@@ -51,3 +57,10 @@ try {
 } catch (error) {
   console.error("Error during product listing initialization:", error);
 }
+}
+
+// Call the initialization function
+init().catch(error => {
+  console.error("Initialization error:", error);
+});
+

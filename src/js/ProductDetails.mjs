@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, alertMessage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
 
@@ -86,6 +86,9 @@ export default class ProductDetails {
     }
   
     setLocalStorage("so-cart", cart);
+
+    // Added success message after adding the product to the cart
+    alertMessage("Item added to cart!", false);
   }  
   
   // Updated renderProductDetails method to use the productDetailsTemplate
